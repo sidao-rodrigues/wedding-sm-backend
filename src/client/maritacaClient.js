@@ -15,7 +15,7 @@ async function classificacao(message) {
         });
 
         const data = await response.json();
-        return JSON.parse(cleanJsonString(data.choices[0].message.content));
+        return data.choices[0].message.content;
     } catch (error) {
         console.error('Erro ao classificar a mensagem:', error);
         throw new Error('Erro ao processar a classificação');
