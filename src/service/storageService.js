@@ -1,8 +1,15 @@
 var supabaseClient = require('./../client/supabaseClient');
+var maritacaClient = require('./../client/maritacaClient');
 
 async function salvarImagem(data) {
 
-  supabaseClient.uploadBase64(data.imagem);
+  let imagem = supabaseClient.uploadBase64(data.imagem);
+
+  // let response = await maritacaClient.classificacaoImagem(`https://mboudblszfwbpiyloofk.supabase.co/storage/v1/object/public/fotos/${imagem.path}`);
+  // response = response.replace(" ", "")
+  // if(response == "ofensivo"){
+  //   //deletar imagem
+  // }
 
   try {
     console.log()

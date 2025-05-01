@@ -11,7 +11,7 @@ async function classificacao(message) {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${MARITACA_TOKEN}`,
             },
-            body: JSON.stringify(mountObjetoRequestMaritaca(message)),
+            body: JSON.stringify(mountObjetoRequestMaritaca(message, prompt.prompt)),
         });
 
         const data = await response.json();
@@ -22,13 +22,32 @@ async function classificacao(message) {
     }
 }
 
-function mountObjetoRequestMaritaca(message) {
+async function classificacaoImagem(url) {
+    try {
+        const response = await fetch('https://chat.maritaca.ai/api/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${MARITACA_TOKEN}`,
+            },
+            body: JSON.stringify(mountObjetoRequestMaritaca(url, prompt.promptImagem)),
+        });
+
+        const data = await response.json();
+        return data.choices[0].message.content;
+    } catch (error) {
+        console.error('Erro ao classificar a mensagem:', error);
+        throw new Error('Erro ao processar a classificação');
+    }
+}
+
+function mountObjetoRequestMaritaca(message, prompt) {
     return {
         "model": "sabia-3",
         "messages": [
             {
                 "role": "system",
-                "content": prompt.prompt
+                "content": prompt
             },
             {
                 "role": "user",
@@ -46,5 +65,6 @@ function cleanJsonString(str) {
 }
 
 module.exports = {
-    classificacao
+    classificacao,
+    classificacaoImagem
 };
