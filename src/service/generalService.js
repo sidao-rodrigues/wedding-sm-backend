@@ -20,7 +20,16 @@ async function buscarComentarios() {
   }
 }
 
+async function salvaConfirmacaoPresenca(data) {
+  try {
+    supabaseClient.salvaConfirmacaoPresenca(data.nome, data.telefone)
+  } catch (error) {
+    //vá pra frente
+  }
+}
+
 module.exports = {
   salvarComentario,
-  buscarComentarios
+  buscarComentarios,
+  salvaConfirmacaoPresenca
 };

@@ -28,6 +28,17 @@ async function buscarComentarios() {
   }
 }
 
+async function salvaConfirmacaoPresenca(nome, telefone) {
+  try{
+    
+    const response  =  await supabase.from('presenca').insert([{ nome: nome, telefone: telefone}])
+      
+  } catch (error) {
+      console.error('Erro ao salvar comentário:', error);
+      throw new Error('Erro ao salvar comentário');
+  }
+}
+
 async function uploadBase64(base64String) {
   try {
     // Extrai o tipo MIME e os dados da string base64
@@ -75,5 +86,6 @@ module.exports = {
   inserirComentario,
   buscarComentarios,
   uploadBase64,
-  buscarImagens
+  buscarImagens,
+  salvaConfirmacaoPresenca
 };
