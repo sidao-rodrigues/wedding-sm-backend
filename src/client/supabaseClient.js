@@ -44,7 +44,7 @@ async function uploadBase64(base64String) {
     // Upload para o Storage
     const { data, error } = await supabase.storage
       .from('fotos') // substitua pelo nome real do seu bucket
-      .upload((imagens.length+1)+".jpg", buffer, {
+      .upload((imagens.length+1)+".webp", buffer, {
         contentType: mimeType,
         upsert: true // sobrescreve se já existir
       });
