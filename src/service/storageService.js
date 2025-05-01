@@ -2,7 +2,20 @@ var supabaseClient = require('./../client/supabaseClient');
 
 async function salvarImagem(data) {
 
-  
+  supabaseClient.uploadBase64(data.imagem);
+
+  try {
+    console.log()
+  } catch (error) {
+    //vá pra frente
+  }
+}
+
+async function buscarImagens(data) {
+
+  let imagens = await supabaseClient.buscarImagens(parseInt(data.numeroItens), parseInt(data.pagina));
+  return imagens;
+  //URL para concatenar nas imagens: https://mboudblszfwbpiyloofk.supabase.co/storage/v1/object/public/fotos/
 
   try {
     console.log()
@@ -12,5 +25,6 @@ async function salvarImagem(data) {
 }
 
 module.exports = {
-  salvarImagem
+  salvarImagem,
+  buscarImagens
 };
